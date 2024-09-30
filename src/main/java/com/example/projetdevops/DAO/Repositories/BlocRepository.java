@@ -34,5 +34,5 @@ public interface BlocRepository extends JpaRepository<Bloc,Long> {
     // Bloc (Child) 1--* Chambre (Parent-FK)
     @Query("select b from Bloc b join Chambre c on c.bloc.idBloc=b.idBloc  where c.typeC=?1")
     List<Bloc> selectBlocsByTypeChambreJPQL(TypeChambre typeChambre);
-    
+
 }
