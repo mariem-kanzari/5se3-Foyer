@@ -1,4 +1,4 @@
-package tn.esprit.spring.DAO.Entities;
+package com.example.projetdevops.DAO.Entities;
 
 public enum TypeChambre {
     SIMPLE, DOUBLE, TRIPLE
