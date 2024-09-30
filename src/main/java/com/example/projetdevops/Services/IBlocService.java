@@ -1,4 +1,4 @@
-package com.example.projetdevops.Services.Bloc;
+package com.example.projetdevops.Services;
 
 import com.example.projetdevops.DAO.Entities.Bloc;
 
