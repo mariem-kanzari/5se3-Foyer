@@ -1,4 +1,4 @@
-package com.example.projetdevops.DAO.Services.Etudiant;
+package com.example.projetdevops.Services.Etudiant;
 
 import com.example.projetdevops.DAO.Entities.Etudiant;
 
