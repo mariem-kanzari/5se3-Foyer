@@ -1,12 +1,11 @@
-package tn.esprit.spring.RestControllers;
+package com.example.projetdevops.RestControllers;
 
+import com.example.projetdevops.DAO.Entities.Foyer;
+import com.example.projetdevops.DAO.Entities.Universite;
+import com.example.projetdevops.Services.Foyer.IFoyerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.DAO.Entities.Etudiant;
-import tn.esprit.spring.DAO.Entities.Foyer;
-import tn.esprit.spring.DAO.Entities.Universite;
-import tn.esprit.spring.Services.Etudiant.IEtudiantService;
-import tn.esprit.spring.Services.Foyer.IFoyerService;
+
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class FoyerRestController {
     }
 
     @PostMapping("ajouterFoyerEtAffecterAUniversite")
-    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer,@RequestParam long idUniversite) {
+    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer, @RequestParam long idUniversite) {
         return service.ajouterFoyerEtAffecterAUniversite(foyer,idUniversite);
     }
 }

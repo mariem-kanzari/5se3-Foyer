@@ -1,58 +1,56 @@
-package tn.esprit.spring.RestControllers;
+package com.example.projetdevops.RestControllers;
 
+import com.example.projetdevops.DAO.Entities.Reservation;
+import com.example.projetdevops.Services.Reservation.IReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.DAO.Entities.Etudiant;
-import tn.esprit.spring.DAO.Entities.Foyer;
-import tn.esprit.spring.DAO.Entities.Universite;
-import tn.esprit.spring.Services.Etudiant.IEtudiantService;
-import tn.esprit.spring.Services.Foyer.IFoyerService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("foyer")
+@RequestMapping("reservation")
 @AllArgsConstructor
-public class FoyerRestController {
-    IFoyerService service;
+public class ReservationRestController {
+    IReservationService service;
 
     @PostMapping("addOrUpdate")
-    Foyer addOrUpdate(@RequestBody Foyer f) {
-        return service.addOrUpdate(f);
+    Reservation addOrUpdate(@RequestBody Reservation r) {
+        return service.addOrUpdate(r);
     }
 
     @GetMapping("findAll")
-    List<Foyer> findAll() {
+    List<Reservation> findAll() {
         return service.findAll();
     }
 
     @GetMapping("findById")
-    Foyer findById(@RequestParam long id) {
+    Reservation findById(@RequestParam String id) {
         return service.findById(id);
     }
 
     @DeleteMapping("delete")
-    void delete(@RequestBody Foyer f) {
-        service.delete(f);
+    void delete(@RequestBody Reservation r) {
+        service.delete(r);
     }
 
     @DeleteMapping("deleteById")
-    void deleteById(@RequestParam long id) {
+    void deleteById(@RequestParam String id) {
         service.deleteById(id);
     }
 
-    @PutMapping("affecterFoyerAUniversite")
-    Universite affecterFoyerAUniversite(@RequestParam long idFoyer, @RequestParam String nomUniversite) {
-        return service.affecterFoyerAUniversite(idFoyer, nomUniversite);
+    @PostMapping("ajouterReservationEtAssignerAChambreEtAEtudiant")
+    Reservation ajouterReservationEtAssignerAChambreEtAEtudiant(@RequestParam Long numChambre, @RequestParam long cin) {
+        return service.ajouterReservationEtAssignerAChambreEtAEtudiant(numChambre, cin);
     }
 
-    @PutMapping("desaffecterFoyerAUniversite")
-    Universite desaffecterFoyerAUniversite(@RequestParam long idUniversite){
-        return service.desaffecterFoyerAUniversite(idUniversite);
+    @GetMapping("getReservationParAnneeUniversitaire")
+    long getReservationParAnneeUniversitaire(@RequestParam LocalDate debutAnnee, @RequestParam LocalDate finAnnee) {
+        return service.getReservationParAnneeUniversitaire(debutAnnee, finAnnee);
     }
 
-    @PostMapping("ajouterFoyerEtAffecterAUniversite")
-    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer,@RequestParam long idUniversite) {
-        return service.ajouterFoyerEtAffecterAUniversite(foyer,idUniversite);
+    @DeleteMapping("annulerReservation")
+    String annulerReservation(@RequestParam long cinEtudiant) {
+        return service.annulerReservation(cinEtudiant);
     }
 }
