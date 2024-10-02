@@ -1,5 +1,6 @@
-package tn.esprit.spring.DAO.Entities;
+package com.example.projetdevops.DAO.Entities;
 
+import com.example.projetdevops.DAO.Entities.Etudiant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
