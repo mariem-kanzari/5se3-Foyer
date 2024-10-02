@@ -1,33 +1,30 @@
 package com.example.projetdevops.DAO.Entities;
 
-
+import com.example.projetdevops.DAO.Entities.Universite;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_ETUDIANT")
+@Table(name = "T_FOYER")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
-public class Etudiant {
+public class Foyer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idEtudiant;
-    String nomEt;
-    String prenomEt;
-    long cin;
-    String ecole;
-    LocalDate dateNaissance;
-    @ManyToMany(mappedBy = "etudiants")
-    List<Reservation> reservations= new ArrayList<>();
-
+    long idFoyer;
+    String nomFoyer;
+    long capaciteFoyer;
+    @OneToOne(mappedBy = "foyer")
+    Universite universite;
+    @OneToMany(mappedBy = "foyer")
+    List<Bloc> blocs= new ArrayList<>();
 }

@@ -1,7 +1,11 @@
 package com.example.projetdevops.Services.Bloc;
 
 import com.example.projetdevops.DAO.Entities.Bloc;
+import com.example.projetdevops.DAO.Entities.Chambre;
+import com.example.projetdevops.DAO.Entities.Foyer;
 import com.example.projetdevops.DAO.Repositories.BlocRepository;
+import com.example.projetdevops.DAO.Repositories.ChambreRepository;
+import com.example.projetdevops.DAO.Repositories.FoyerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
