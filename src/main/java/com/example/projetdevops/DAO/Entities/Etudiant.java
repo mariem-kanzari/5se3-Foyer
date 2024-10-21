@@ -29,6 +29,6 @@ public class Etudiant {
     LocalDate dateNaissance;
     @ManyToMany(mappedBy = "etudiants")
     List<Reservation> reservations= new ArrayList<>();
-    //testing ngrok 2 2 2 
+    //testing ngrok 2 2 2
 
 }
