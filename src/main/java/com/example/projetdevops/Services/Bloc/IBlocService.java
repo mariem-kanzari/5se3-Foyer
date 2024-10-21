@@ -1,7 +1,5 @@
 package com.example.projetdevops.Services.Bloc;
-
 import com.example.projetdevops.DAO.Entities.Bloc;
-
 import java.util.List;
 
 public interface IBlocService {
