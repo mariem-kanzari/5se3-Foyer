@@ -21,13 +21,15 @@ public class Bloc implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idBloc;
+
     String nomBloc;
     long capaciteBloc;
+
     @ManyToOne
     @JsonIgnore
     Foyer foyer;
+
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
-    List<Chambre> chambres= new ArrayList<>();
-    //FOR TEST PURPOSES, ~~.
+    private List<Chambre> chambres = new ArrayList<>();
 }
