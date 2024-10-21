@@ -1,5 +1,4 @@
 package com.example.projetdevops.DAO.Repositories;
-
 import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.DAO.Entities.TypeChambre;
 import org.springframework.data.jpa.repository.JpaRepository;
