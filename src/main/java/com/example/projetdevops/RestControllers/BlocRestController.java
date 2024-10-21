@@ -1,11 +1,8 @@
 package com.example.projetdevops.RestControllers;
-
 import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.Services.Bloc.IBlocService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController

@@ -1,10 +1,8 @@
 package com.example.projetdevops.DAO.Entities;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
