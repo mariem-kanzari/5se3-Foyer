@@ -30,9 +30,7 @@ public interface BlocRepository extends JpaRepository<Bloc,Long> {
     @Modifying
     @Query(value = "update t_bloc set nom_bloc=?1 where capacite_bloc<10",nativeQuery = true)
     void updateBlocSQL(String nom);
-
-    // Récupérer les blocs qui ont des chambres avec un typeChambre donné
-    // Bloc (Child) 1--* Chambre (Parent-FK)
+    
     @Query("select b from Bloc b join Chambre c on c.bloc.idBloc=b.idBloc  where c.typeC=?1")
     List<Bloc> selectBlocsByTypeChambreJPQL(TypeChambre typeChambre);
 
