@@ -6,6 +6,7 @@ import com.example.projetdevops.DAO.Entities.Foyer;
 import com.example.projetdevops.DAO.Repositories.BlocRepository;
 import com.example.projetdevops.DAO.Repositories.ChambreRepository;
 import com.example.projetdevops.DAO.Repositories.FoyerRepository;
+import com.example.projetdevops.Exceptions.BlocNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +51,7 @@ public class BlocService implements IBlocService {
     @Override
     public Bloc findById(long id) {
         Optional<Bloc> optionalBloc = repo.findById(id);
-        if (optionalBloc.isPresent()) {
-            return optionalBloc.get();
-        } else {
-            throw new RuntimeException("Bloc not found with id: " + id);
-        }
+        return optionalBloc.orElseThrow(() -> new BlocNotFoundException(id));
     }
 
     @Override
