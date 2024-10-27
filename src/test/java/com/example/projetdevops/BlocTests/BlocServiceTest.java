@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class BlocServiceTest {
+ class BlocServiceTest {
 
     @Autowired
     private BlocRepository blocRepository;
@@ -40,21 +40,27 @@ public class BlocServiceTest {
     }
 
     @Test
-    public void testAddOrUpdate() {
+     void testAddOrUpdate() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
+        bloc.setCapaciteBloc(100); // Assuming this is an int
         bloc.setChambres(new ArrayList<>());
 
         Bloc savedBloc = blocService.addOrUpdate(bloc);
 
-        assertNotNull(savedBloc.getIdBloc());
+        // Check if the saved Bloc ID is greater than zero (indicating it's been saved)
+        assertTrue(savedBloc.getIdBloc() > 0, "Bloc ID should be greater than 0");
+
+        // Validate the name of the Bloc
         assertEquals("Bloc A", savedBloc.getNomBloc());
+
+        // Validate the capacity of the Bloc
         assertEquals(100, savedBloc.getCapaciteBloc());
     }
 
+
     @Test
-    public void testFindAll() {
+     void testFindAll() {
         Bloc bloc1 = new Bloc();
         bloc1.setNomBloc("Bloc A");
         bloc1.setCapaciteBloc(100);
@@ -71,7 +77,7 @@ public class BlocServiceTest {
     }
 
     @Test
-    public void testFindById() {
+     void testFindById() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
@@ -84,7 +90,7 @@ public class BlocServiceTest {
     }
 
     @Test
-    public void testFindByIdNotFound() {
+    void testFindByIdNotFound() {
         long nonExistentId = 999L;
 
         Exception exception = assertThrows(BlocNotFoundException.class, () -> {
@@ -95,19 +101,23 @@ public class BlocServiceTest {
     }
 
     @Test
-    public void testDeleteById() {
+     void testDeleteById() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
         Bloc savedBloc = blocRepository.save(bloc);
-
         blocService.deleteById(savedBloc.getIdBloc());
 
-        assertThrows(BlocNotFoundException.class, () -> blocService.findById(savedBloc.getIdBloc()));
+        // Store the bloc ID to avoid multiple calls in lambda
+        long deletedBlocId = savedBloc.getIdBloc();
+        assertThrows(BlocNotFoundException.class, () -> {
+            blocService.findById(deletedBlocId);
+        });
     }
 
+
     @Test
-    public void testDelete() {
+     void testDelete() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
@@ -123,11 +133,16 @@ public class BlocServiceTest {
 
         blocService.delete(bloc);
 
-        assertThrows(BlocNotFoundException.class, () -> blocService.findById(bloc.getIdBloc()));
+        // Store the bloc ID to avoid multiple calls in lambda
+        long deletedBlocId = bloc.getIdBloc();
+        assertThrows(BlocNotFoundException.class, () -> {
+            blocService.findById(deletedBlocId);
+        });
     }
 
+
     @Test
-    public void testAffecterChambresABloc() {
+     void testAffecterChambresABloc() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
@@ -154,7 +169,7 @@ public class BlocServiceTest {
     }
 
     @Test
-    public void testAffecterBlocAFoyer() {
+     void testAffecterBlocAFoyer() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
