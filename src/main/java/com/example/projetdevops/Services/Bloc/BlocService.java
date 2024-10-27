@@ -36,7 +36,7 @@
                 chambre.setBloc(b); // Associate the Chambre with the managed Bloc
                 chambreRepository.save(chambre);
             }
-            return b; // Return the managed entity
+            return b; 
         }
 
         @Override
