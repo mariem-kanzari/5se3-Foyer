@@ -29,4 +29,9 @@ public class Bloc implements Serializable {
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Chambre> chambres = new ArrayList<>();
+
+    // Custom getter for idBloc
+    public Long getId() {
+        return idBloc;
+    }
 }

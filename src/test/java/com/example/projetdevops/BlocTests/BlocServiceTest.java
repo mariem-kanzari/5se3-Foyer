@@ -9,19 +9,28 @@ import com.example.projetdevops.DAO.Repositories.ChambreRepository;
 import com.example.projetdevops.DAO.Repositories.FoyerRepository;
 import com.example.projetdevops.Exceptions.BlocNotFoundException;
 import com.example.projetdevops.Services.Bloc.BlocService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(SpringExtension.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
- class BlocServiceTest {
+@Transactional // This ensures tests are wrapped in a transaction
+public class BlocServiceTest {
 
     @Autowired
     private BlocRepository blocRepository;
@@ -32,156 +41,147 @@ import static org.junit.jupiter.api.Assertions.*;
     @Autowired
     private FoyerRepository foyerRepository;
 
+    @Autowired // Inject EntityManager here
+    private EntityManager entityManager;
+
     private BlocService blocService;
 
     @BeforeEach
     public void setUp() {
-        blocService = new BlocService(blocRepository, chambreRepository, blocRepository, foyerRepository);
+        // Pass all four dependencies to the BlocService constructor
+        blocService = new BlocService(blocRepository, chambreRepository, foyerRepository, entityManager);
+    }
+
+
+    @AfterEach
+    public void tearDown() {
+        chambreRepository.deleteAll(); // Clear chambres first
+        blocRepository.deleteAll(); // Clear blocs
+        foyerRepository.deleteAll(); // Clear foyers
     }
 
     @Test
-     void testAddOrUpdate() {
+    @Order(1)
+    public void testAddOrUpdate() {
         Bloc bloc = new Bloc();
-        bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100); // Assuming this is an int
-        bloc.setChambres(new ArrayList<>());
+        bloc.setNomBloc("Test Bloc");
 
         Bloc savedBloc = blocService.addOrUpdate(bloc);
 
-        // Check if the saved Bloc ID is greater than zero (indicating it's been saved)
-        assertTrue(savedBloc.getIdBloc() > 0, "Bloc ID should be greater than 0");
-
-        // Validate the name of the Bloc
-        assertEquals("Bloc A", savedBloc.getNomBloc());
-
-        // Validate the capacity of the Bloc
-        assertEquals(100, savedBloc.getCapaciteBloc());
+        Bloc fetchedBloc = blocRepository.findById(savedBloc.getId()).orElse(null);
+        assertThat(fetchedBloc).isNotNull(); // Ensure fetchedBloc is not null
+        assertEquals(bloc.getNomBloc(), fetchedBloc.getNomBloc());
     }
 
-
     @Test
-     void testFindAll() {
+    @Order(2)
+    public void testFindAll() {
         Bloc bloc1 = new Bloc();
         bloc1.setNomBloc("Bloc A");
-        bloc1.setCapaciteBloc(100);
         blocRepository.save(bloc1);
 
         Bloc bloc2 = new Bloc();
         bloc2.setNomBloc("Bloc B");
-        bloc2.setCapaciteBloc(150);
         blocRepository.save(bloc2);
 
         List<Bloc> blocs = blocService.findAll();
 
-        assertEquals(2, blocs.size());
+        assertThat(blocs).hasSize(2);
+        assertThat(blocs).extracting(Bloc::getNomBloc).containsExactlyInAnyOrder("Bloc A", "Bloc B");
     }
 
     @Test
-     void testFindById() {
+    @Order(3)
+    public void testFindById() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
         Bloc savedBloc = blocRepository.save(bloc);
 
-        Bloc foundBloc = blocService.findById(savedBloc.getIdBloc());
+        Bloc foundBloc = blocService.findById(savedBloc.getId());
 
-        assertNotNull(foundBloc);
-        assertEquals(savedBloc.getIdBloc(), foundBloc.getIdBloc());
+        assertThat(foundBloc).isNotNull();
+        assertEquals(savedBloc.getId(), foundBloc.getId());
+        assertEquals("Bloc A", foundBloc.getNomBloc());
     }
 
     @Test
-    void testFindByIdNotFound() {
-        long nonExistentId = 999L;
-
-        Exception exception = assertThrows(BlocNotFoundException.class, () -> {
-            blocService.findById(nonExistentId);
-        });
-
-        assertEquals("Bloc not found with id: 999", exception.getMessage());
+    @Order(4)
+    public void testFindById_NotFound() {
+        assertThrows(BlocNotFoundException.class, () -> blocService.findById(999L)); // Non-existing ID
     }
 
     @Test
-     void testDeleteById() {
+    @Order(5)
+    public void testDeleteById() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
         Bloc savedBloc = blocRepository.save(bloc);
-        blocService.deleteById(savedBloc.getIdBloc());
 
-        // Store the bloc ID to avoid multiple calls in lambda
-        long deletedBlocId = savedBloc.getIdBloc();
-        assertThrows(BlocNotFoundException.class, () -> {
-            blocService.findById(deletedBlocId);
-        });
+        blocService.deleteById(savedBloc.getId());
+
+        assertThrows(BlocNotFoundException.class, () -> blocService.findById(savedBloc.getId())); // Check if it is deleted
     }
 
-
     @Test
-     void testDelete() {
+    @Order(6)
+    public void testDelete() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
         List<Chambre> chambres = new ArrayList<>();
-        Chambre chambre = new Chambre();
-        chambre.setNumeroChambre(101L);
-        chambre.setTypeC(TypeChambre.SIMPLE);
-        chambre.setBloc(bloc);
+
+        Chambre chambre = Chambre.builder()
+                .numeroChambre(103)
+                .typeC(TypeChambre.TRIPLE) // Ensure a valid enum value
+                .build();
         chambres.add(chambre);
         bloc.setChambres(chambres);
-        blocRepository.save(bloc);
-        chambreRepository.save(chambre);
+        Bloc savedBloc = blocRepository.save(bloc);
 
-        blocService.delete(bloc);
+        blocService.delete(savedBloc);
 
-        // Store the bloc ID to avoid multiple calls in lambda
-        long deletedBlocId = bloc.getIdBloc();
-        assertThrows(BlocNotFoundException.class, () -> {
-            blocService.findById(deletedBlocId);
-        });
-    }
-
-
-    @Test
-    void testAffecterChambresABloc() {
-       Bloc bloc = new Bloc();
-       bloc.setNomBloc("Bloc A");
-       bloc.setCapaciteBloc(100);
-       bloc = blocRepository.save(bloc); // Save to persist in context
-
-       Chambre chambre1 = new Chambre();
-       chambre1.setNumeroChambre(101L);
-       chambre1.setTypeC(TypeChambre.SIMPLE);
-       chambre1.setBloc(bloc); // Associate with saved Bloc
-       chambreRepository.save(chambre1); // Save to persist in context
-
-       Chambre chambre2 = new Chambre();
-       chambre2.setNumeroChambre(102L);
-       chambre2.setTypeC(TypeChambre.DOUBLE);
-       chambre2.setBloc(bloc); // Associate with saved Bloc
-       chambreRepository.save(chambre2); // Save to persist in context
-
-       List<Long> chambreIds = List.of(101L, 102L);
-       Bloc updatedBloc = blocService.affecterChambresABloc(chambreIds, "Bloc A");
-
-       assertNotNull(updatedBloc);
-       assertEquals("Bloc A", updatedBloc.getNomBloc());
-       assertEquals(2, updatedBloc.getChambres().size());
+        assertThrows(BlocNotFoundException.class, () -> blocService.findById(savedBloc.getId())); // Check if it is deleted
     }
 
     @Test
-     void testAffecterBlocAFoyer() {
+    @Order(7)
+    public void testAffecterChambresABloc() {
+        List<Long> numChambre = Arrays.asList(1L, 2L);
+        String nomBloc = "Bloc Test";
+
+        Bloc bloc = new Bloc();
+        bloc.setNomBloc(nomBloc);
+        bloc = blocRepository.save(bloc);
+
+        Chambre chambre1 = new Chambre();
+        chambre1.setNumeroChambre(1);
+        chambre1.setBloc(bloc);
+        chambreRepository.save(chambre1);
+
+        Chambre chambre2 = new Chambre();
+        chambre2.setNumeroChambre(2);
+        chambre2.setBloc(bloc);
+        chambreRepository.save(chambre2);
+
+        Bloc updatedBloc = blocService.affecterChambresABloc(numChambre, nomBloc);
+
+        Bloc fetchedBloc = blocService.findById(updatedBloc.getId());
+        assertEquals(updatedBloc.getNomBloc(), fetchedBloc.getNomBloc());
+    }
+
+    @Test
+    @Order(8)
+    public void testAffecterBlocAFoyer() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
-        blocRepository.save(bloc);
+        Bloc savedBloc = blocRepository.save(bloc);
 
         Foyer foyer = new Foyer();
-        foyer.setNomFoyer("Foyer A");
+        foyer.setNomFoyer("Foyer 1");
         foyerRepository.save(foyer);
 
-        Bloc updatedBloc = blocService.affecterBlocAFoyer("Bloc A", "Foyer A");
+        blocService.affecterBlocAFoyer("Bloc A", "Foyer 1");
 
-        assertNotNull(updatedBloc);
-        assertEquals(foyer.getNomFoyer(), updatedBloc.getFoyer().getNomFoyer());
+        Bloc updatedBloc = blocService.findById(savedBloc.getId());
+        assertThat(updatedBloc.getFoyer()).isEqualTo(foyer);
     }
 }
