@@ -25,7 +25,13 @@ public class Bloc implements Serializable {
     @ManyToOne
     @JsonIgnore
     Foyer foyer;
+
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Chambre> chambres = new ArrayList<>();
+
+    // Custom getter for idBloc
+    public Long getId() {
+        return idBloc;
+    }
 }
