@@ -34,14 +34,15 @@ public class BlocService implements IBlocService {
 
     @Override
     public Bloc addOrUpdate(Bloc b) {
-        List<Chambre> chambres= b.getChambres();
-        b= repo.save(b);
-        for (Chambre chambre: chambres) {
-            chambre.setBloc(b);
-            chambreRepository.save(chambre);
+        b = repo.save(b); // Save the Bloc first to ensure it is managed
+        List<Chambre> chambres = b.getChambres();
+        for (Chambre chambre : chambres) {
+            chambre.setBloc(b); // Associate the Chambre with the managed Bloc
+            chambreRepository.save(chambre); // This should be fine if Chambre is new or managed
         }
         return b;
     }
+
 
     @Override
     public List<Bloc> findAll() {

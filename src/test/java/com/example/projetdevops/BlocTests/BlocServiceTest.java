@@ -13,13 +13,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@SpringBootTest
  class BlocServiceTest {
 
     @Autowired
@@ -35,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
     @BeforeEach
     public void setUp() {
-        // Instantiate the service using the actual repository beans
         blocService = new BlocService(blocRepository, chambreRepository, blocRepository, foyerRepository);
     }
 
@@ -142,30 +142,30 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
     @Test
-     void testAffecterChambresABloc() {
-        Bloc bloc = new Bloc();
-        bloc.setNomBloc("Bloc A");
-        bloc.setCapaciteBloc(100);
-        blocRepository.save(bloc);
+    void testAffecterChambresABloc() {
+       Bloc bloc = new Bloc();
+       bloc.setNomBloc("Bloc A");
+       bloc.setCapaciteBloc(100);
+       bloc = blocRepository.save(bloc); // Save to persist in context
 
-        Chambre chambre1 = new Chambre();
-        chambre1.setNumeroChambre(101L);
-        chambre1.setTypeC(TypeChambre.SIMPLE);
-        chambre1.setBloc(bloc);
-        chambreRepository.save(chambre1);
+       Chambre chambre1 = new Chambre();
+       chambre1.setNumeroChambre(101L);
+       chambre1.setTypeC(TypeChambre.SIMPLE);
+       chambre1.setBloc(bloc); // Associate with saved Bloc
+       chambreRepository.save(chambre1); // Save to persist in context
 
-        Chambre chambre2 = new Chambre();
-        chambre2.setNumeroChambre(102L);
-        chambre2.setTypeC(TypeChambre.DOUBLE);
-        chambre2.setBloc(bloc);
-        chambreRepository.save(chambre2);
+       Chambre chambre2 = new Chambre();
+       chambre2.setNumeroChambre(102L);
+       chambre2.setTypeC(TypeChambre.DOUBLE);
+       chambre2.setBloc(bloc); // Associate with saved Bloc
+       chambreRepository.save(chambre2); // Save to persist in context
 
-        List<Long> chambreIds = List.of(101L, 102L);
-        Bloc updatedBloc = blocService.affecterChambresABloc(chambreIds, "Bloc A");
+       List<Long> chambreIds = List.of(101L, 102L);
+       Bloc updatedBloc = blocService.affecterChambresABloc(chambreIds, "Bloc A");
 
-        assertNotNull(updatedBloc);
-        assertEquals("Bloc A", updatedBloc.getNomBloc());
-        assertEquals(2, updatedBloc.getChambres().size());
+       assertNotNull(updatedBloc);
+       assertEquals("Bloc A", updatedBloc.getNomBloc());
+       assertEquals(2, updatedBloc.getChambres().size());
     }
 
     @Test

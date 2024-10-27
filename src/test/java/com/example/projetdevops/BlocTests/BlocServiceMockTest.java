@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class BlocServiceMockTest {
+ class BlocServiceMockTest {
 
     @Mock
     private BlocRepository blocRepository;
@@ -43,7 +43,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testAddOrUpdate() {
+     void testAddOrUpdate() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
@@ -66,7 +66,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testFindAll() {
+     void testFindAll() {
         Bloc bloc1 = new Bloc();
         bloc1.setNomBloc("Bloc A");
         bloc1.setCapaciteBloc(100);
@@ -86,7 +86,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testFindById() {
+     void testFindById() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         bloc.setCapaciteBloc(100);
@@ -102,7 +102,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testFindByIdNotFound() {
+     void testFindByIdNotFound() {
         when(blocRepository.findById(999L)).thenReturn(Optional.empty());
 
         Exception exception = assertThrows(BlocNotFoundException.class, () -> {
@@ -114,7 +114,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testDeleteById() {
+     void testDeleteById() {
         Bloc bloc = new Bloc();
         bloc.setIdBloc(1L);
 
@@ -126,7 +126,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testDelete() {
+     void testDelete() {
         Bloc bloc = new Bloc();
         bloc.setIdBloc(1L);
         List<Chambre> chambres = new ArrayList<>();
@@ -146,7 +146,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testAffecterChambresABloc() {
+     void testAffecterChambresABloc() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         when(blocRepository.findByNomBloc("Bloc A")).thenReturn(bloc);
@@ -166,7 +166,7 @@ public class BlocServiceMockTest {
     }
 
     @Test
-    public void testAffecterBlocAFoyer() {
+     void testAffecterBlocAFoyer() {
         Bloc bloc = new Bloc();
         bloc.setNomBloc("Bloc A");
         when(blocRepository.findByNomBloc("Bloc A")).thenReturn(bloc);
