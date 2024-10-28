@@ -17,6 +17,7 @@ public class UniversiteServiceTest  {
 
     @Autowired
     private UniversiteRepository universiteRepository;
+    @Autowired
 
     private UniversiteService universiteService;
 
