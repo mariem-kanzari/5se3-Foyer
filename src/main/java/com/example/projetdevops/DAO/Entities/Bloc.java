@@ -1,10 +1,8 @@
 package com.example.projetdevops.DAO.Entities;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,6 @@ public class Bloc implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idBloc;
-
     String nomBloc;
     long capaciteBloc;
 
@@ -32,4 +29,9 @@ public class Bloc implements Serializable {
     @OneToMany(mappedBy = "bloc", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Chambre> chambres = new ArrayList<>();
+
+    // Custom getter for idBloc
+    public Long getId() {
+        return idBloc;
+    }
 }
