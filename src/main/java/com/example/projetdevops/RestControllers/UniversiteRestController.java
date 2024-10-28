@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UniversiteRestController {
     IUniversiteService service;
-//PostMappingg1111111
+//PostMappingg111
     @PostMapping("addOrUpdate")
     public Universite addOrUpdate(@RequestBody Universite u) {
         return service.addOrUpdate(u);
