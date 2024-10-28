@@ -1,4 +1,4 @@
-package com.example.projetdevops;
+package com.example.projetdevops.UniversiteTests;
 
 
 
