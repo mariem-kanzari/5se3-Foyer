@@ -1,4 +1,4 @@
-package com.example.projetdevops;
+package com.example.projetdevops.UniversiteTests;
 
 
  import com.example.projetdevops.DAO.Entities.Universite;
