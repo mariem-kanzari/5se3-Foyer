@@ -10,9 +10,11 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>Projet-Devops</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.1.0</version>
     <name>Projet-Devops</name>
     <description>Projet-Devops</description>
+    <packaging>jar</packaging> <!-- Ensure packaging is set to jar -->
+
     <url/>
     <licenses>
         <license/>
