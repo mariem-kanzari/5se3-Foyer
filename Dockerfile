@@ -1,18 +1,18 @@
-# Use OpenJDK 17 as the base image
+# Use the official OpenJDK 17 image from the Docker Hub
 FROM openjdk:17-jdk-slim
+LABEL authors="mkanz"
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the Maven build files and source code
-COPY pom.xml .
-COPY src ./src
+# Build argument for the JAR file
+ARG JAR_FILE
 
-# Copy the built JAR file to the container
-COPY target/*.jar app.jar
+# Copy the downloaded JAR file into the container using the build argument
+COPY ${JAR_FILE} app.jar
 
-# Expose the application port
+# Expose the port your application runs on (adjust if needed)
 EXPOSE 8080
 
-# Set the entry point for the container
+# Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
