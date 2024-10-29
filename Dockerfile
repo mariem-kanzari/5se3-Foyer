@@ -1,6 +1,7 @@
 # Utiliser une image de base Java
 FROM openjdk:17-jre-slim
 
+LABEL authors="ghofrane"
 # Définir le répertoire de travail
 WORKDIR /app
 
