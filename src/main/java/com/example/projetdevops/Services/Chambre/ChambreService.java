@@ -59,11 +59,7 @@ public class ChambreService implements IChambreService {
     @Override
     public List<Chambre> getChambresNonReserveParNomFoyerEtTypeChambre(String nomFoyer, TypeChambre type) {
 
-        // Afficher les chambres non réservée, par typeChambre,
-        // appartenant à un foyer donné par son nom, effectué durant
-        // l’année universitaire actuelle.
 
-        // Début "récuperer l'année universitaire actuelle"
         LocalDate dateDebutAU;
         LocalDate dateFinAU;
         int numReservation;
