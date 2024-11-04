@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  spring-app:
+    image: onsbenothmen/projet-devops:latest
+    container_name: projet_devops_spring
+    ports:
+      - "8081:8081"  # Expose port 8081 on the host
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/foyer?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD:
+      SPRING_APPLICATION_NAME: Projet-Devops
+    depends_on:
+      - mysql-db
+    networks:
+      - app-network
+
+  mysql-db:
+    image: mysql:5.7  # Using MySQL version 5.7
+    container_name: projet_devops_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Root password for MySQL
+      MYSQL_DATABASE: foyer  # Initial database to create
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist MySQL data
+    ports:
+      - "3306:3306"  # Expose port 3306 on the host
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
