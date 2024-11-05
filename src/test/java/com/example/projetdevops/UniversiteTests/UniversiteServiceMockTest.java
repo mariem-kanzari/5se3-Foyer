@@ -1,80 +1,105 @@
 package com.example.projetdevops.UniversiteTests;
 
-
-
 import com.example.projetdevops.DAO.Entities.Universite;
 import com.example.projetdevops.DAO.Repositories.UniversiteRepository;
 import com.example.projetdevops.Services.Universite.UniversiteService;
-import org.junit.jupiter.api.BeforeEach;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class UniversiteServiceMockTest {
+@ExtendWith(MockitoExtension.class)
+class UniversiteServiceMockTest {
 
+    @Mock
+    private UniversiteRepository universiteRepository;
+
+    @Mock
+    private EntityManager entityManager;
+
+    @InjectMocks
     private UniversiteService universiteService;
-    private UniversiteRepository universiteRepositoryMock;
 
-    @BeforeEach
-    public void setUp() {
-        universiteRepositoryMock = Mockito.mock(UniversiteRepository.class);
-        universiteService = new UniversiteService(universiteRepositoryMock);
+    @Test
+    void testAddOrUpdate() {
+        Universite universite = new Universite();
+        universite.setNomUniversite("Université A");
+
+        when(entityManager.merge(any(Universite.class))).thenReturn(universite);
+        when(universiteRepository.save(any(Universite.class))).thenReturn(universite);
+
+        Universite savedUniversite = universiteService.addOrUpdate(universite);
+
+        assertNotNull(savedUniversite);
+        assertEquals("Université A", savedUniversite.getNomUniversite());
+        verify(universiteRepository, times(1)).save(universite);
     }
 
     @Test
-    public void testAddOrUpdate() {
-        Universite universite = new Universite();
-        universite.setNomUniversite("Université Mock");
+    void testFindAll() {
+        Universite universite1 = new Universite();
+        universite1.setNomUniversite("Université A");
+        Universite universite2 = new Universite();
+        universite2.setNomUniversite("Université B");
 
-        when(universiteRepositoryMock.save(any(Universite.class))).thenReturn(universite);
+        when(universiteRepository.findAll()).thenReturn(List.of(universite1, universite2));
 
-        Universite result = universiteService.addOrUpdate(universite);
+        List<Universite> result = universiteService.findAll();
 
-        assertEquals("Université Mock", result.getNomUniversite());
-        verify(universiteRepositoryMock, times(1)).save(universite);
+        assertEquals(2, result.size());
+        verify(universiteRepository, times(1)).findAll();
     }
 
-
     @Test
-    public void testFindById() {
+    void testFindById() {
         Universite universite = new Universite();
-        universite.setNomUniversite("Université Mock");
+        universite.setNomUniversite("Université A");
         universite.setIdUniversite(1L);
 
-        when(universiteRepositoryMock.findById(1L)).thenReturn(Optional.of(universite));
+        when(universiteRepository.findById(1L)).thenReturn(Optional.of(universite));
 
-        Universite result = universiteService.findById(1L);
+        Universite foundUniversite = universiteService.findById(1L);
 
-        assertNotNull(result);
-        assertEquals("Université Mock", result.getNomUniversite());
-        assertEquals(1L, result.getIdUniversite());
-        verify(universiteRepositoryMock, times(1)).findById(1L);
+        assertNotNull(foundUniversite);
+        assertEquals("Université A", foundUniversite.getNomUniversite());
+        verify(universiteRepository, times(1)).findById(1L);
     }
 
     @Test
-    public void testDeleteById() {
-        Universite universite = new Universite();
-        universite.setNomUniversite("Université Mock");
-        universite.setIdUniversite(1L);
+    void testFindByIdNotFound() {
+        when(universiteRepository.findById(999L)).thenReturn(Optional.empty());
 
-        doNothing().when(universiteRepositoryMock).deleteById(1L);
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            universiteService.findById(999L);
+        });
 
+        assertEquals("Université not found with id: 999", exception.getMessage());
+        verify(universiteRepository, times(1)).findById(999L);
+    }
+
+    @Test
+    void testDeleteById() {
         universiteService.deleteById(1L);
 
-        verify(universiteRepositoryMock, times(1)).deleteById(1L);
+        verify(universiteRepository, times(1)).deleteById(1L);
     }
 
     @Test
-    public void testFindByIdNotFound() {
-        when(universiteRepositoryMock.findById(2L)).thenReturn(Optional.empty());
+    void testDelete() {
+        Universite universite = new Universite();
+        universite.setIdUniversite(1L);
 
-        assertThrows(IllegalArgumentException.class, () -> {
-            universiteService.findById(2L);
-        });
+        universiteService.delete(universite);
+
+        verify(universiteRepository, times(1)).delete(universite);
     }
 }
