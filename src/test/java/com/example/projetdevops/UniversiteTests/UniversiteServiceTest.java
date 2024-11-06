@@ -2,35 +2,44 @@ package com.example.projetdevops.UniversiteTests;
 
 import com.example.projetdevops.DAO.Entities.Universite;
 import com.example.projetdevops.DAO.Repositories.UniversiteRepository;
+import com.example.projetdevops.Exceptions.UniversiteNotFoundException;
 import com.example.projetdevops.Services.Universite.UniversiteService;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringBootTest
+@Transactional // This ensures tests are wrapped in a transaction
 public class UniversiteServiceTest {
 
     @Autowired
     private UniversiteRepository universiteRepository;
 
-    @Autowired
+    @Autowired // Inject EntityManager here if needed
+    private EntityManager entityManager;
+
     private UniversiteService universiteService;
 
     @BeforeEach
     public void setUp() {
-        // Optionnel : Vous pouvez réinitialiser la base de données ou faire d'autres configurations ici.
+        universiteService = new UniversiteService(universiteRepository);
     }
 
     @AfterEach
     public void tearDown() {
-        universiteRepository.deleteAll(); // Réinitialise la base de données après chaque test
+        universiteRepository.deleteAll(); // Clear universities
     }
 
     @Test
@@ -40,10 +49,10 @@ public class UniversiteServiceTest {
         universite.setNomUniversite("Test Université");
 
         Universite savedUniversite = universiteService.addOrUpdate(universite);
-        Universite fetchedUniversite = universiteRepository.findById(savedUniversite.getIdUniversite()).orElse(null);
 
-        assertThat(fetchedUniversite).isNotNull();
-        Assertions.assertEquals(universite.getNomUniversite(), fetchedUniversite.getNomUniversite());
+        Universite fetchedUniversite = universiteRepository.findById(savedUniversite.getIdUniversite()).orElse(null);
+        assertThat(fetchedUniversite).isNotNull(); // Ensure fetchedUniversite is not null
+        assertEquals(universite.getNomUniversite(), fetchedUniversite.getNomUniversite());
     }
 
     @Test
@@ -57,10 +66,10 @@ public class UniversiteServiceTest {
         universite2.setNomUniversite("Université B");
         universiteRepository.save(universite2);
 
-        List<Universite> result = universiteService.findAll();
+        List<Universite> universites = universiteService.findAll();
 
-        assertThat(result).hasSize(2);
-        assertThat(result).extracting(Universite::getNomUniversite).containsExactlyInAnyOrder("Université A", "Université B");
+        assertThat(universites).hasSize(2);
+        assertThat(universites).extracting(Universite::getNomUniversite).containsExactlyInAnyOrder("Université A", "Université B");
     }
 
     @Test
@@ -73,15 +82,16 @@ public class UniversiteServiceTest {
         Universite foundUniversite = universiteService.findById(savedUniversite.getIdUniversite());
 
         assertThat(foundUniversite).isNotNull();
-        Assertions.assertEquals(savedUniversite.getIdUniversite(), foundUniversite.getIdUniversite());
-        Assertions.assertEquals("Université A", foundUniversite.getNomUniversite());
+        assertEquals(savedUniversite.getIdUniversite(), foundUniversite.getIdUniversite());
+        assertEquals("Université A", foundUniversite.getNomUniversite());
     }
 
     @Test
     @Order(4)
     public void testFindById_NotFound() {
-        Assertions.assertThrows(RuntimeException.class, () -> universiteService.findById(999L)); // ID non existant
+        assertThrows(IllegalArgumentException.class, () -> universiteService.findById(999L)); // ID inexistant
     }
+
 
     @Test
     @Order(5)
@@ -92,8 +102,10 @@ public class UniversiteServiceTest {
 
         universiteService.deleteById(savedUniversite.getIdUniversite());
 
-        Assertions.assertThrows(RuntimeException.class, () -> universiteService.findById(savedUniversite.getIdUniversite())); // Vérifie si supprimé
+        // Modifier le test pour vérifier l'IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> universiteService.findById(savedUniversite.getIdUniversite())); // ID de l'université supprimée
     }
+
 
     @Test
     @Order(6)
@@ -102,8 +114,10 @@ public class UniversiteServiceTest {
         universite.setNomUniversite("Université A");
         Universite savedUniversite = universiteRepository.save(universite);
 
+        // Delete the university
         universiteService.delete(savedUniversite);
 
-        Assertions.assertThrows(RuntimeException.class, () -> universiteService.findById(savedUniversite.getIdUniversite())); // Vérifie si supprimé
+        // Expect IllegalArgumentException since UniversiteNotFoundException is not thrown by the service
+        assertThrows(IllegalArgumentException.class, () -> universiteService.findById(savedUniversite.getIdUniversite()));
     }
 }
