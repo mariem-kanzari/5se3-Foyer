@@ -34,7 +34,6 @@ class UniversiteServiceMockTest {
         Universite universite = new Universite();
         universite.setNomUniversite("Université A");
 
-        when(entityManager.merge(any(Universite.class))).thenReturn(universite);
         when(universiteRepository.save(any(Universite.class))).thenReturn(universite);
 
         Universite savedUniversite = universiteService.addOrUpdate(universite);
@@ -43,6 +42,7 @@ class UniversiteServiceMockTest {
         assertEquals("Université A", savedUniversite.getNomUniversite());
         verify(universiteRepository, times(1)).save(universite);
     }
+
 
     @Test
     void testFindAll() {
@@ -82,9 +82,10 @@ class UniversiteServiceMockTest {
             universiteService.findById(999L);
         });
 
-        assertEquals("Université not found with id: 999", exception.getMessage());
+        assertEquals("Universite with id 999 not found", exception.getMessage());
         verify(universiteRepository, times(1)).findById(999L);
     }
+
 
     @Test
     void testDeleteById() {
