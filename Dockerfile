@@ -1,15 +1,17 @@
-# Utiliser une image de base Java
+# Use a base Java image
 FROM openjdk:17-jre-slim
 
+# Metadata
 LABEL authors="ghofrane"
-# Définir le répertoire de travail
+
+# Set the working directory
 WORKDIR /app
 
-# Copier le fichier JAR dans le conteneur
-COPY target/0.0.2-SNAPSHOT.jar app.jar
+# Copy the generated JAR file into the container (update the JAR file name here if it changes)
+COPY target/Projet-Devops-0.0.3-SNAPSHOT.jar app.jar
 
-# Exposer le port sur lequel l'application écoute
+# Expose the port on which the application will run
 EXPOSE 8080
 
-# Commande pour exécuter l'application
+# Command to run the application
 CMD ["java", "-jar", "app.jar"]
