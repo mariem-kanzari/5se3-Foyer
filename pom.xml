@@ -29,6 +29,8 @@
         <url/>
     </scm>
     <properties>
+                 <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
         <java.version>17</java.version>
     </properties>
     <dependencies>
@@ -125,6 +127,11 @@
                     </execution>
                 </executions>
             </plugin>
+                    <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.9.1.2184</version> <!-- Vérifiez la dernière version disponible -->
+        </plugin>
         </plugins>
     </build>
 
