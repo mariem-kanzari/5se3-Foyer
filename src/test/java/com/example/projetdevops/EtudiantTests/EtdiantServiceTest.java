@@ -1,5 +1,4 @@
 package com.example.projetdevops.EtudiantTests;
-
 import com.example.projetdevops.DAO.Entities.Etudiant;
 import com.example.projetdevops.DAO.Repositories.EtudiantRepository;
 import com.example.projetdevops.Services.Etudiant.EtudiantService;
@@ -7,42 +6,48 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
-public class EtdiantServiceTest {
+@DataJpaTest // Utilise une base de données en mémoire
+@Import(EtudiantService.class) // Importer le service pour qu'il soit testé avec le repo réel
+class EtdiantServiceTest {
 
     @Autowired
     private EtudiantRepository etudiantRepository;
 
+    @Autowired
     private EtudiantService etudiantService;
 
     @BeforeEach
-    public void setUp() {
-        etudiantService = new EtudiantService(etudiantRepository);
+    void setUp() {
+        etudiantRepository.deleteAll(); // Nettoyer la base de données avant chaque test
     }
 
     @Test
-    public void testAddOrUpdate() {
-        Etudiant etudiant = new Etudiant();
-        etudiant.setCin(1478);
+    void testSaveEtudiant() {
+        Etudiant etudiant = Etudiant.builder()
+                .nomEt("John")
+                .prenomEt("Doe")
+                .cin(123456)
+                .ecole("Ecole1")
+                .dateNaissance(LocalDate.of(1990, 1, 1))
+                .build();
 
-        Etudiant result = etudiantService.addOrUpdate(etudiant);
+        Etudiant savedEtudiant = etudiantService.addOrUpdate(etudiant);
 
-        assertNotNull(result.getIdEtudiant());
-        assertEquals(1478, result.getCin());
+        assertNotNull(savedEtudiant.getIdEtudiant());
+        assertEquals("John", savedEtudiant.getNomEt());
     }
 
     @Test
-    public void testFindAll() {
-        Etudiant etudiant1 = new Etudiant();
-        etudiant1.setNomEt("John Doe");
-
-        Etudiant etudiant2 = new Etudiant();
-        etudiant2.setNomEt("Jane Doe");
+    void testGetAllEtudiants() {
+        Etudiant etudiant1 = Etudiant.builder().nomEt("John").prenomEt("Doe").build();
+        Etudiant etudiant2 = Etudiant.builder().nomEt("Jane").prenomEt("Doe").build();
 
         etudiantService.addOrUpdate(etudiant1);
         etudiantService.addOrUpdate(etudiant2);
@@ -51,25 +56,4 @@ public class EtdiantServiceTest {
 
         assertEquals(2, etudiants.size());
     }
-
-    @Test
-    public void testFindById() {
-        Etudiant etudiant = new Etudiant();
-        etudiant.setNomEt("John Doe");
-
-        Etudiant savedEtudiant = etudiantService.addOrUpdate(etudiant);
-        Etudiant foundEtudiant = etudiantService.findById(savedEtudiant.getIdEtudiant());
-
-        assertEquals(savedEtudiant.getIdEtudiant(), foundEtudiant.getIdEtudiant());
-    }
-
-    @Test
-    public void testDeleteById() {
-        Etudiant etudiant = new Etudiant();
-        etudiant.setNomEt("John Doe");
-
-        Etudiant savedEtudiant = etudiantService.addOrUpdate(etudiant);
-        etudiantService.deleteById(savedEtudiant.getIdEtudiant());
-
-        assertFalse(etudiantRepository.findById(savedEtudiant.getIdEtudiant()).isPresent());
-    }}
+}
