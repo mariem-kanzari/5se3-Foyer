@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>Projet-Devops</artifactId>
-    <version>0.1.2</version>
+    <version>0.2.0</version>
     <name>Projet-Devops</name>
     <description>Projet-Devops</description>
     <packaging>jar</packaging> <!-- Ensure packaging is set to jar -->
@@ -29,7 +29,6 @@
         <url/>
     </scm>
     <properties>
-                 <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <java.version>17</java.version>
     </properties>
