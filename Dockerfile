@@ -9,7 +9,7 @@ WORKDIR /app
 EXPOSE 8082
 
 # Copy the built JAR file from the host to the container
-COPY target/Projet-Devops-0.2.2.jar tp-foyer.jar
+COPY target/Projet-Devops-0.2.1.jar tp-foyer.jar
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "tp-foyer.jar"]
