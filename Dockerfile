@@ -8,7 +8,7 @@ LABEL authors="ghofrane"
 WORKDIR /app
 
 # Copy the generated JAR file into the container (update the JAR file name here if it changes)
-COPY target/Projet-Devops-0.0.1-SNAPSHOT.jar app.jar
+COPY target/Projet-Devops-0.0.2-SNAPSHOT.jar app.jar
 
 # Expose the port on which the application will run
 EXPOSE 8080
