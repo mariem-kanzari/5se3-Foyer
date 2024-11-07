@@ -29,7 +29,7 @@
         <url/>
     </scm>
     <properties>
-                 <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-ut/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+                 <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <java.version>17</java.version>
     </properties>
