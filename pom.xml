@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>Projet-Devops</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <name>Projet-Devops</name>
     <description>Projet-Devops</description>
     <packaging>jar</packaging> <!-- Ensure packaging is set to jar -->
