@@ -160,12 +160,12 @@ class BlocServiceMockTest {
         foyer.setNomFoyer("Foyer A");
         when(foyerRepository.findByNomFoyer("Foyer A")).thenReturn(foyer);
 
-        when(entityManager.merge(any(Bloc.class))).thenReturn(bloc); // Ensure merge is used in the service logic
+        when(entityManager.merge(any(Bloc.class))).thenReturn(bloc);
 
         Bloc updatedBloc = blocService.affecterBlocAFoyer("Bloc A", "Foyer A");
 
         assertNotNull(updatedBloc);
         assertEquals(foyer.getNomFoyer(), updatedBloc.getFoyer().getNomFoyer());
-        verify(entityManager, times(1)).merge(bloc); // Ensure merge was called
+        verify(entityManager, times(1)).merge(bloc);
     }
 }
