@@ -166,6 +166,6 @@ class BlocServiceMockTest {
 
         assertNotNull(updatedBloc);
         assertEquals(foyer.getNomFoyer(), updatedBloc.getFoyer().getNomFoyer());
-        verify(entityManager, times(1)).merge(bloc); 
+        verify(entityManager, times(1)).merge(bloc);
     }
 }
