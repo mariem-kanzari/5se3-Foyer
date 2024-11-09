@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     build: .
+    image: my-app-image:latest
     ports:
       - "8081:8081"
     environment:
