@@ -19,16 +19,17 @@ public class EtudiantService implements IEtudiantService {
 
     @Override
     public List<Etudiant> findAll() {
-        return repo.findAll();
-    }
+        List<Etudiant> etudiants = (List<Etudiant>) repo.findAll();
+        System.out.println("Fetched Etudiants: " + etudiants); // Logging for debugging
+        return etudiants;}
 
     @Override
-    public Etudiant findById(long id) {
+    public Etudiant findById(Integer id) {
         return repo.findById(id).get();
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Integer id) {
         repo.deleteById(id);
     }
 
@@ -36,4 +37,6 @@ public class EtudiantService implements IEtudiantService {
     public void delete(Etudiant e) {
         repo.delete(e);
     }
+
+
 }

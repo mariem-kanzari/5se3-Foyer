@@ -6,9 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
 
 @RestController
-@RequestMapping("etudiant")
+@RequestMapping("/etudiant/")
 @AllArgsConstructor
 public class EtudiantRestController {
     IEtudiantService service;
@@ -18,13 +19,13 @@ public class EtudiantRestController {
         return service.addOrUpdate(e);
     }
 
-    @GetMapping("findAll")
+    @GetMapping("find")
     List<Etudiant> findAll() {
-        return service.findAll();
+        return  service.findAll();
     }
 
-    @GetMapping("findById")
-    Etudiant findById(@RequestParam long id) {
+    @GetMapping("findById/{id}")
+    Etudiant findById(@PathVariable("id") Integer id) {
         return service.findById(id);
     }
 
@@ -33,8 +34,8 @@ public class EtudiantRestController {
         service.delete(e);
     }
 
-    @DeleteMapping("deleteById")
-    void deleteById(@RequestParam long id) {
+    @DeleteMapping("deleteById/{id}")
+    void deleteById(@PathVariable("id") Integer id) {
         service.deleteById(id);
     }
 }

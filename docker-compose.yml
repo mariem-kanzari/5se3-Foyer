@@ -42,5 +42,15 @@ services:
     stdin_open: true
     tty: true
 
+  app-front:
+    image: shadhanej/angular
+    ports:
+      - "80:80"
+    restart: on-failure
+    depends_on:
+      app-tpfoyer:
+        condition: service_started  # Fix dependency on backend service (app-tpfoyer)
+
+
 volumes:
   db:

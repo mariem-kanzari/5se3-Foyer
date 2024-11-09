@@ -7,7 +7,7 @@ import java.util.List;
 public interface IEtudiantService {
     Etudiant addOrUpdate(Etudiant e);
     List<Etudiant> findAll();
-    Etudiant findById(long id);
-    void deleteById(long id);
+    Etudiant findById(Integer id);
+    void deleteById(Integer id);
     void delete(Etudiant e);
 }

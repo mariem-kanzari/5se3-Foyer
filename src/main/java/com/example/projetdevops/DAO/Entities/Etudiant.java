@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "T_ETUDIANT")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +20,7 @@ import java.util.List;
 public class Etudiant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idEtudiant;
+    Integer idEtudiant;
     String nomEt;
     String prenomEt;
     long cin;
@@ -29,6 +28,6 @@ public class Etudiant {
     LocalDate dateNaissance;
     @ManyToMany(mappedBy = "etudiants")
     List<Reservation> reservations= new ArrayList<>();
-    //testing ngrok 2 2 2
+
 
 }

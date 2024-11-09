@@ -32,7 +32,7 @@ class EtudiantServiceMockitoTest {
 
     @Test
     void testSaveEtudiant() {
-        Etudiant etudiant = new Etudiant(1L, "John", "Doe", 123456, "Ecole1", LocalDate.of(1990, 1, 1), null);
+        Etudiant etudiant = new Etudiant(1, "John", "Doe", 123456, "Ecole1", LocalDate.of(1990, 1, 1), null);
         when(etudiantRepository.save(etudiant)).thenReturn(etudiant);
 
         Etudiant savedEtudiant = etudiantService.addOrUpdate(etudiant);
@@ -44,8 +44,8 @@ class EtudiantServiceMockitoTest {
 
     @Test
     void testGetAllEtudiants() {
-        Etudiant etudiant1 = new Etudiant(1L, "John", "Doe", 123456, "Ecole1", LocalDate.of(1990, 1, 1), null);
-        Etudiant etudiant2 = new Etudiant(2L, "Jane", "Doe", 654321, "Ecole2", LocalDate.of(1992, 2, 2), null);
+        Etudiant etudiant1 = new Etudiant(1, "John", "Doe", 123456, "Ecole1", LocalDate.of(1990, 1, 1), null);
+        Etudiant etudiant2 = new Etudiant(2, "Jane", "Doe", 654321, "Ecole2", LocalDate.of(1992, 2, 2), null);
 
         when(etudiantRepository.findAll()).thenReturn(Arrays.asList(etudiant1, etudiant2));
 
