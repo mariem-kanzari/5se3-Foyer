@@ -11,7 +11,7 @@ COPY src ./src
 
 
 
-COPY target/myapp.jar app.jar
+COPY target/Projet-Devops.0.0.4.jar app.jar
 
 
 EXPOSE 8080
