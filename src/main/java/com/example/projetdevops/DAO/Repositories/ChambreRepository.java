@@ -2,7 +2,6 @@ package com.example.projetdevops.DAO.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.DAO.Entities.Chambre;
 import com.example.projetdevops.DAO.Entities.TypeChambre;
 
@@ -16,24 +15,25 @@ public interface ChambreRepository extends JpaRepository<Chambre, Long> {
 
     int countByTypeCAndBlocIdBloc(TypeChambre typeChambre, long idBloc);
 
-    //********************* Ajouter Reservation *********************
-    //SQL
+    // ********************* Ajouter Reservation *********************
+    // SQL
     @Query(value = "select count(*) from t_chambre c " +
             "join t_chambre_reservations cr on c.id_chambre=cr.chambre_id_chambre " +
             "join t_reservation r on cr.reservations_id_reservation=r.id_reservation " +
             "where c.id_chambre=?1 and r.annee_universitaire between ?2 and ?3", nativeQuery = true)
     int listerReservationPourUneChambre(long idChambre, LocalDate dateDebutAU, LocalDate dateFinAU);
 
-    //Keyword
-    int countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween(long chambreId, LocalDate dateDebutAU, LocalDate dateFinAU);
+    // Keyword
+    int countReservationsByIdChambreAndReservationsAnneeUniversitaireBetween(long chambreId, LocalDate dateDebutAU,
+            LocalDate dateFinAU);
 
-    //*****************************************************************
+    // *****************************************************************
     Chambre findByReservationsIdReservation(String idReservation);
 
     long count();
 
     long countChambreByTypeC(TypeChambre typeChambre);
 
-    long countReservationsByIdChambreAndReservationsEstValideAndReservationsAnneeUniversitaireBetween(long idChambre, boolean estValide, LocalDate dateDebut, LocalDate dateFin);
-//    List<Chambre> findAllByNumeroChambre(List<Long> num);
+    long countReservationsByIdChambreAndReservationsEstValideAndReservationsAnneeUniversitaireBetween(long idChambre,
+            boolean estValide, LocalDate dateDebut, LocalDate dateFin);
 }
