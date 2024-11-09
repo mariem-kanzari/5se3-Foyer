@@ -24,12 +24,12 @@ services:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
-       healthcheck:
-    test: ["CMD", "mysqladmin", "ping", "--silent"]
-    interval: 10s
-    retries: 10
-    start_period: 30s
-    timeout: 10s
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 10s
 
 volumes:
-  db-data:  
+  db-data:
