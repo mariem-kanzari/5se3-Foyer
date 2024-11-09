@@ -71,11 +71,20 @@
             <version>2.1.0</version>
         </dependency>
     </dependencies> 
-    <distributionManagement>
- <id>deploymentRepo</id>
- <url>http://192.168.33.10:8081/repository/maven-releases/</url>
+<distributionManagement>
+    <repository>
+        <id>deploymentRepo</id>
+        <name>Internal Releases</name>
+        <url>http://192.168.33.10:8081/repository/maven-releases/</url>
+        <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+        <id>deploymentSnapshotRepo</id>
+        <name>Internal Snapshots</name>
+        <url>http://192.168.33.10:8081/repository/maven-snapshots/</url>
+        <layout>default</layout>
+    </snapshotRepository>
 </distributionManagement>
-
     <build>
         <plugins> 
         <plugin>
