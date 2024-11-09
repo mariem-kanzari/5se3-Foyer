@@ -23,12 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")  // Activate the 'test' profile for MySQL
 
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestPropertySource(properties = "spring.test.context.timeout=10000")  // 10 seconds timeout
-@TestPropertySource(locations = "classpath:application-test.properties")  // Add this line
 
 @SpringBootTest
 @Transactional // This ensures tests are wrapped in a transaction
