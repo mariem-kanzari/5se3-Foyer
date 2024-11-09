@@ -1,16 +1,15 @@
 package com.example.projetdevops.DAO.Repositories;
-
 import com.example.projetdevops.DAO.Entities.Bloc;
+import com.example.projetdevops.DAO.Entities.TypeChambre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-
 import java.util.List;
 
 public interface BlocRepository extends JpaRepository<Bloc,Long> {
-    Bloc findByNomBloc(String nom);
+    @Query("SELECT b FROM Bloc b WHERE b.nomBloc = :nomBloc")
+    Bloc findByNomBloc(@Param("nomBloc") String nomBloc);
 
     @Query("select b from Bloc b where b.nomBloc=?1")
     Bloc selectByNomBJPQL1(String nom);
@@ -30,8 +29,6 @@ public interface BlocRepository extends JpaRepository<Bloc,Long> {
     @Query(value = "update t_bloc set nom_bloc=?1 where capacite_bloc<10",nativeQuery = true)
     void updateBlocSQL(String nom);
 
-    // Récupérer les blocs qui ont des chambres avec un typeChambre donné
-    // Bloc (Child) 1--* Chambre (Parent-FK)
     @Query("select b from Bloc b join Chambre c on c.bloc.idBloc=b.idBloc  where c.typeC=?1")
     List<Bloc> selectBlocsByTypeChambreJPQL(TypeChambre typeChambre);
 

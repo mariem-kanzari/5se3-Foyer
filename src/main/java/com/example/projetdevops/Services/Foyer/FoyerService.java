@@ -1,14 +1,14 @@
-package tn.esprit.spring.Services.Foyer;
+package com.example.projetdevops.Services.Foyer;
 
+import com.example.projetdevops.DAO.Entities.Bloc;
+import com.example.projetdevops.DAO.Entities.Foyer;
+import com.example.projetdevops.DAO.Entities.Universite;
+import com.example.projetdevops.DAO.Repositories.BlocRepository;
+import com.example.projetdevops.DAO.Repositories.FoyerRepository;
+import com.example.projetdevops.DAO.Repositories.UniversiteRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.spring.DAO.Entities.*;
-import tn.esprit.spring.DAO.Entities.Universite;
-import tn.esprit.spring.DAO.Entities.Bloc;
-import tn.esprit.spring.DAO.Repositories.BlocRepository;
-import tn.esprit.spring.DAO.Repositories.EtudiantRepository;
-import tn.esprit.spring.DAO.Repositories.FoyerRepository;
-import tn.esprit.spring.DAO.Repositories.UniversiteRepository;
+
 
 import java.util.List;
 

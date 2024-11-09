@@ -6,6 +6,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "T_ETUDIANT")
@@ -25,7 +27,8 @@ public class Etudiant {
     long cin;
     String ecole;
     LocalDate dateNaissance;
-   // @ManyToMany(mappedBy = "etudiants")
-  //  List<Reservation> reservations= new ArrayList<>();
+    @ManyToMany(mappedBy = "etudiants")
+    List<Reservation> reservations= new ArrayList<>();
+    //testing ngrok 2 2 2
 
 }

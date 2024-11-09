@@ -1,5 +1,6 @@
-package tn.esprit.spring.DAO.Entities;
+package com.example.projetdevops.DAO.Entities;
 
+import com.example.projetdevops.DAO.Entities.Universite;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
