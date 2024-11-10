@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class FoyerAspect {
     //Méthode: Advice
-    @Before("execution(* com.example.projetdevops.Services..*.*(..))")
+    /*@Before("execution(* com.example.projetdevops.Services..*.*(..))")
     public void method(JoinPoint jp){
         log.info("hello "+jp.getSignature().getName());
     }
@@ -32,5 +32,5 @@ public class FoyerAspect {
         long elapsedTime = System.currentTimeMillis() - start;
         log.info("Method execution time: " + elapsedTime + " milliseconds.");
         return null;
-    }
+    }*/
 }

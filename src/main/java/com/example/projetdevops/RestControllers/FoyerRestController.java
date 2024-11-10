@@ -16,7 +16,7 @@ public class FoyerRestController {
     IFoyerService service;
 
     @PostMapping("addOrUpdate")
-    Foyer addOrUpdate(@RequestBody Foyer f) {
+    Foyer addOrUpdate(@RequestBody Foyer f ) {
         return service.addOrUpdate(f);
     }
 

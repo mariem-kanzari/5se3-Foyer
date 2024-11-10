@@ -1,6 +1,7 @@
 package com.example.projetdevops.DAO.Entities;
 
 import com.example.projetdevops.DAO.Entities.Universite;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

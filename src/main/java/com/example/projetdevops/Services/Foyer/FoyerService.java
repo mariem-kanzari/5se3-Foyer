@@ -7,6 +7,7 @@ import com.example.projetdevops.DAO.Repositories.BlocRepository;
 import com.example.projetdevops.DAO.Repositories.FoyerRepository;
 import com.example.projetdevops.DAO.Repositories.UniversiteRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -16,12 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 public class FoyerService implements IFoyerService {
     FoyerRepository repo;
+
     UniversiteRepository universiteRepository;
     BlocRepository blocRepository;
 
     @Override
-    public Foyer addOrUpdate(Foyer f) {
-        return repo.save(f);
+    public Foyer addOrUpdate(Foyer foyer) {
+      return  repo.save(foyer);
+
+
     }
 
     @Override

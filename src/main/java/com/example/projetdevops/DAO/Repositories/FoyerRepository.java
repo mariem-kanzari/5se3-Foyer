@@ -3,9 +3,10 @@ package com.example.projetdevops.DAO.Repositories;
 import com.example.projetdevops.DAO.Entities.Foyer;
 import com.example.projetdevops.DAO.Entities.TypeChambre;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface FoyerRepository extends JpaRepository<Foyer,Long> {
     Foyer findByNomFoyer(String nom);
     // select * from Foyer where capaciteFoyer > ....

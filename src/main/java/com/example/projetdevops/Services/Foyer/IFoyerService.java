@@ -7,7 +7,9 @@ import com.example.projetdevops.DAO.Entities.Universite;
 import java.util.List;
 
 public interface IFoyerService {
-    Foyer addOrUpdate(Foyer f);
+
+
+    Foyer addOrUpdate(Foyer foyer);
 
     List<Foyer> findAll();
 
