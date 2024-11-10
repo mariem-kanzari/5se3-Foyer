@@ -1,19 +1,6 @@
-services:
-  db:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: foyer
-    ports:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+version: '3.8'
 
+services:
   app:
     build: .
     image: my-app-image:latest
@@ -43,6 +30,21 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
-volumes:
-  db-data:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
