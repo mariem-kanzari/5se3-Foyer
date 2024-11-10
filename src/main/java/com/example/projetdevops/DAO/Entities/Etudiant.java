@@ -28,8 +28,8 @@ public class Etudiant {
     long cin;
     String ecole;
     LocalDate dateNaissance;
-    @ManyToMany(mappedBy = "etudiants") // Reference to the 'etudiants' property in Reservation
-    @JsonIgnore
-    private List<Reservation> reservations = new ArrayList<>();
+    @ManyToMany(mappedBy = "etudiants")
+    List<Reservation> reservations= new ArrayList<>();
+    //testing ngrok 2 2 2
 
 }

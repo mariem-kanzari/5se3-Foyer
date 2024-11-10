@@ -1,1 +1,8 @@
-com\example\projetdevops\ProjetDevopsApplicationTests.class
+com\example\projetdevops\ReservationTests\ReservationServiceTest.class
+com\example\projetdevops\UniversiteTests\UniversiteServiceMockTest.class
+com\example\projetdevops\BlocTests\BlocServiceTest.class
+com\example\projetdevops\BlocTests\BlocServiceMockTest.class
+com\example\projetdevops\ReservationTests\ReservationServiceMockTest.class
+com\example\projetdevops\EtudiantTests\EtudiantServiceMockTest.class
+com\example\projetdevops\EtudiantTests\EtdiantServiceTest.class
+com\example\projetdevops\UniversiteTests\UniversiteServiceTest.class

@@ -28,8 +28,7 @@ public class Chambre implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     Bloc bloc;
-    @OneToMany 
-    @Builder.Default
-    private List<Reservation> reservations= new ArrayList<>();
+    @OneToMany
+    private List<Reservation> reservations = new ArrayList<>();
 
 }

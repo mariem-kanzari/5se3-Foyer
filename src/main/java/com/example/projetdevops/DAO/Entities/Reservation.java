@@ -27,6 +27,5 @@ public class Reservation implements Serializable {
 
     @ManyToMany
     @JsonIgnore // Ignore this field in JSON serialization
-    @Builder.Default
     List<Etudiant> etudiants = new ArrayList<>();
 }

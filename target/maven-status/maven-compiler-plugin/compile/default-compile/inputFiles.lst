@@ -13,6 +13,8 @@ C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\DAO\Repositorie
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\DAO\Repositories\FoyerRepository.java
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\DAO\Repositories\ReservationRepository.java
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\DAO\Repositories\UniversiteRepository.java
+C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\Exceptions\BlocNotFoundException.java
+C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\Exceptions\UniversiteNotFoundException.java
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\ProjetDevopsApplication.java
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\RestControllers\BlocRestController.java
 C:\Users\desig\5se3-Foyer\src\main\java\com\example\projetdevops\RestControllers\ChambreRestController.java

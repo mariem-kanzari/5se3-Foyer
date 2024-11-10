@@ -11,6 +11,7 @@ com\example\projetdevops\DAO\Entities\Foyer.class
 com\example\projetdevops\DAO\Repositories\UniversiteRepository.class
 com\example\projetdevops\RestControllers\ChambreRestController.class
 com\example\projetdevops\Services\Etudiant\IEtudiantService.class
+com\example\projetdevops\Exceptions\BlocNotFoundException.class
 com\example\projetdevops\ProjetDevopsApplication.class
 com\example\projetdevops\RestControllers\ReservationRestController.class
 com\example\projetdevops\DAO\Repositories\FoyerRepository.class
@@ -29,6 +30,7 @@ com\example\projetdevops\Services\Chambre\ChambreService.class
 com\example\projetdevops\Services\Bloc\BlocService.class
 com\example\projetdevops\Services\Reservation\ReservationService$1.class
 com\example\projetdevops\Services\Reservation\IReservationService.class
+com\example\projetdevops\Exceptions\UniversiteNotFoundException.class
 com\example\projetdevops\Services\Universite\UniversiteService.class
 com\example\projetdevops\RestControllers\UniversiteRestController.class
 com\example\projetdevops\Services\Bloc\IBlocService.class
