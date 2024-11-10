@@ -26,9 +26,7 @@ services:
           }
         }
     depends_on:
-      db:
-        condition: service_healthy
-
+      - db 
   db:
     image: mysql:5.7
     environment:
