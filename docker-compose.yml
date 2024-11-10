@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    image: my-app-image:latest
+    image: my-new-app-image:latest
     ports:
       - "8082:8082"
     environment:
