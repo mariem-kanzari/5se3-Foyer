@@ -6,8 +6,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        JAR_FILE: ./app.jar  # Specify the JAR file during build
     volumes:
-      - ./app.jar:/app/app.jar
+      - ./app.jar:/app/app.jar  # Mount the JAR file to the container
     ports:
       - "8082:8082"
 
