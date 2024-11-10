@@ -9,7 +9,7 @@ WORKDIR /app
 ARG JAR_FILE
 
 # Copy the downloaded JAR file into the container
-COPY target/${JAR_FILE} app.jar
+COPY ./${JAR_FILE} app.jar
 
 # Expose the port your application runs on
 EXPOSE 8082
