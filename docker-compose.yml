@@ -4,12 +4,17 @@ services:
   db:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Use this for root password
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: foyer
     ports:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
@@ -38,7 +43,8 @@ services:
           }
         }
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
 volumes:
   db-data:
