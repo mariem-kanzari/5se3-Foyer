@@ -1,9 +1,13 @@
 # Use the official OpenJDK 17 image from the Docker Hub
 FROM openjdk:17-jdk-slim
+
 LABEL authors="mkanzari"
 
 # Set the working directory in the container
 WORKDIR /app
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
 
 # Build argument for the JAR file
 ARG JAR_FILE
