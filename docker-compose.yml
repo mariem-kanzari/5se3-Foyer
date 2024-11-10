@@ -7,9 +7,9 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        JAR_FILE: ./app.jar  # Specify the JAR file during build
+        JAR_FILE: target/my-app.jar  # Specify the correct path to the JAR file here
     volumes:
-      - ./app.jar:/app/app.jar  # Mount the JAR file to the container
+      - ./target/my-app.jar:/app/my-app.jar  # Mount the JAR file correctly
     ports:
       - "8082:8082"
 
