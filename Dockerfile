@@ -10,10 +10,13 @@ COPY src ./src
 # Run Maven to build the JAR
 RUN mvn clean package -DskipTests
 
-# Second stage: Run the JAR file with OpenJDK 17
+# Second stage: Run the JAR file with OpenJDK 17 and Maven installed
 FROM openjdk:17-jdk-slim
 
 WORKDIR /app
+
+# Install Maven in the runtime container
+RUN apt-get update && apt-get install -y maven
 
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/*.jar app.jar
