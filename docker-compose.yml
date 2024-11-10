@@ -33,9 +33,3 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-uroot", "-proot"]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
