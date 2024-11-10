@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-db:
+  db:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -11,6 +11,7 @@ db:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+
   app:
     build: .
     image: my-app-image:latest
@@ -23,3 +24,6 @@ db:
       SPRING_JPA_SHOW_SQL: "true"
     depends_on:
       - db
+
+volumes:
+  db-data:
