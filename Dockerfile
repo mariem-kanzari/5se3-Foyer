@@ -1,19 +1,22 @@
-# Use the official OpenJDK 17 image from the Docker Hub
-FROM openjdk:17-jdk-slim
+# First stage: Build the JAR with Maven
+FROM maven:3.8-openjdk-17-slim AS build
 
-LABEL authors="mkanzari"
-
-# Set the working directory in the container
 WORKDIR /app
 
-# Install Maven
-RUN apt-get update && apt-get install -y maven
+# Copy your pom.xml and source code
+COPY pom.xml .
+COPY src ./src
 
-# Build argument for the JAR file
-ARG JAR_FILE
+# Run Maven to build the JAR
+RUN mvn clean package -DskipTests
 
-# Copy the downloaded JAR file into the container
-COPY ./${JAR_FILE} app.jar
+# Second stage: Run the JAR file with OpenJDK 17
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+# Copy the JAR file from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
 # Expose the port your application runs on
 EXPOSE 8082
