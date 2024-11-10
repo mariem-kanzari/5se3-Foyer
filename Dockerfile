@@ -1,7 +1,6 @@
-
 # Use the official OpenJDK 17 image from the Docker Hub
 FROM openjdk:17-jdk-slim
-LABEL authors="mkanz"
+LABEL authors="mkanzari"
 
 # Set the working directory in the container
 WORKDIR /app
@@ -9,30 +8,11 @@ WORKDIR /app
 # Build argument for the JAR file
 ARG JAR_FILE
 
-# Copy the downloaded JAR file into the container using the build argument
+# Copy the downloaded JAR file into the container
 COPY ${JAR_FILE} app.jar
 
-# Expose the port your application runs on (adjust if needed)
+# Expose the port your application runs on
 EXPOSE 8081
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
-# Use a base Java image
-FROM openjdk:17-jdk-slim
-
-# Metadata
-LABEL authors="ghofrane"
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the generated JAR file into the container (update the JAR file name here if it changes)
-ADD target/Projet-Devops.jar Projet-Devops.jar
-
-# Expose the port on which the application will run
-EXPOSE 8080
-
-# Command to run the application
-CMD ["java", "-jar", "/Projet-Devops"]
-
