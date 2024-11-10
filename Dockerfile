@@ -11,11 +11,11 @@ COPY src ./src
 
 
 
-COPY target/Projet-Devops-0.0.4.jar app.jar
+COPY target/Projet-Devops-0.0.4.jar Projet-Devops-0.0.4.jar
 
 
-EXPOSE 8080
+EXPOSE 8087
 
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "Projet-Devops-0.0.4.jar"]
 
