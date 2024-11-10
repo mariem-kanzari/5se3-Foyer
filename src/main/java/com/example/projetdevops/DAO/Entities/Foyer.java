@@ -1,6 +1,5 @@
 package com.example.projetdevops.DAO.Entities;
 
-import com.example.projetdevops.DAO.Entities.Universite;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -26,5 +25,6 @@ public class Foyer implements Serializable {
     @OneToOne(mappedBy = "foyer")
     Universite universite;
     @OneToMany(mappedBy = "foyer")
-    List<Bloc> blocs= new ArrayList<>();
+    private List<Bloc> blocs;
+
 }
