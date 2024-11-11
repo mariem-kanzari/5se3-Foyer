@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://192.168.33.10"})
 
 @RestController
 @RequestMapping("/etudiant/")
