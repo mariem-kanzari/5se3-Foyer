@@ -19,10 +19,10 @@ public class BlocRestController {
 
     @GetMapping("findAll")
     public List<Bloc> findAll() {
-            System.out.println("Controller returning blocs: " + blocs);
-        return service.findAll();
+        List<Bloc> blocs = service.findAll();
+        System.out.println("Controller returning blocs: " + blocs); // Log the result
+        return blocs; // Return the actual list
     }
-
     @GetMapping("findById")
     public Bloc findById(@RequestParam long id) {
         return service.findById(id);
