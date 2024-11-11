@@ -1,9 +1,7 @@
 FROM openjdk:17-jdk-slim
+LABEL authors="mkanz"
 
 WORKDIR /app
-
-# Install Maven in the runtime container
-RUN apt-get update && apt-get install -y maven
 
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/*.jar app.jar
