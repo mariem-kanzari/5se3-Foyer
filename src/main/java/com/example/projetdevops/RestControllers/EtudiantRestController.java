@@ -7,7 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"*"})
+
+@CrossOrigin(origins = "*")
 
 @RestController
 @RequestMapping("/etudiant/")
@@ -26,16 +27,13 @@ public class EtudiantRestController {
         return service.findAll();
     }
 
-
     @GetMapping("findById/{id}")
     Etudiant findById(@PathVariable("id") Long id) {
         return service.retrieveEtudiant(id);
     }
 
-    @DeleteMapping("delete")
+    @DeleteMapping("delete/{etudiant-id}")
     public void removeEtudiant(@PathVariable("etudiant-id") Long chId) {
         service.removeEtudiant(chId);
     }
-
-
 }
