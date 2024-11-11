@@ -11,6 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>Projet-Devops</artifactId>
     <version>1.2.5</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>Projet-Devops</name>
     <description>Projet-Devops</description>
     <url/>
@@ -76,6 +77,8 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
+
+ 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -90,7 +93,20 @@
         </repository>
     </distributionManagement>
     <build>
-        <plugins>
+        <plugins> 
+        <plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.7</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>prepare-agent</goal>
+                <goal>report</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -123,6 +139,45 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <parallel>none</parallel>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.5.0</version>  <!-- Remplacez par la version actuelle -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>  <!-- Cette phase peut varier -->
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>XML</format> <!-- Vous pouvez également utiliser HTML si nécessaire -->
+                    <outputDirectory>target</outputDirectory>  <!-- Répertoire de sortie pour le rapport -->
+                </configuration>
+            </plugin>
+
         </plugins>
         <finalName>Projet-Devops</finalName>
     </build>

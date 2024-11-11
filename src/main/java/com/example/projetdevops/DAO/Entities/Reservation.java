@@ -1,7 +1,7 @@
 package com.example.projetdevops.DAO.Entities;
 
-import com.example.projetdevops.DAO.Entities.Etudiant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -24,8 +24,8 @@ public class Reservation implements Serializable {
     String idReservation;
     LocalDate anneeUniversitaire;
     boolean estValide;
-    @ManyToMany
-    @JsonIgnore
-    List<Etudiant> etudiants = new ArrayList<>();
 
+    @ManyToMany
+    @JsonIgnore // Ignore this field in JSON serialization
+    List<Etudiant> etudiants = new ArrayList<>();
 }

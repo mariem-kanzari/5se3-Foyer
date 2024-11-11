@@ -25,11 +25,17 @@ services:
             }
           }
         }
+
+      SPRING_DATASOURCE_PASSWORD: ""  # Laisser vide si aucun mot de passe n'est utilisé
     depends_on:
       - db 
   db:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ""  # Laisser vide si aucun mot de passe n'est utilisé
+      MYSQL_DATABASE: foyer
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ""  # Laisser vide si aucun mot de passe n'est utilisé
     ports:
       - "3306:3306"
