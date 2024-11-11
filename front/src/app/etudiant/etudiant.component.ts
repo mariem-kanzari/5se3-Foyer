@@ -124,7 +124,7 @@ export class EtudiantComponent {
   }
 
   // Remove Etudiant
-  removeEtudiant(id: number | undefined) {
+  deleteEtudiant(id: number | undefined) {
     this.etudiantService.removeEtudiant(id!).subscribe({
       next: () => {
         this.getEtudiants();

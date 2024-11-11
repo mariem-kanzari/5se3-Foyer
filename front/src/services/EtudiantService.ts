@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 export class Services {
 
-  private baseUrl1 = `http://192.168.33.10:8082/tpfoyer/etudiant`;
+  private baseUrl1 = `http://localhost:8082/tpfoyer/etudiant`;
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class Services {
     return this.http.post<any>(`${this.baseUrl1}/addOrUpdate`,e);
   }
   removeEtudiant(equipeid: number): Observable<Etudiant> {
-    return this.http.delete<Etudiant>(`${this.baseUrl1}/deleteById/${equipeid}`);
+    return this.http.delete<Etudiant>(`${this.baseUrl1}/delete/${equipeid}`);
   }
   updateEtudiant(e: Etudiant): Observable<any> {
     return this.http.put<any>(`${this.baseUrl1}/addOrUpdate/`, e);
