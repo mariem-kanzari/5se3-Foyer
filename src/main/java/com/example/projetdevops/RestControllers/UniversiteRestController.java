@@ -22,7 +22,6 @@ public class UniversiteRestController {
     public List<Universite> findAll() {
         return service.findAll();
     }
-
     @GetMapping("findById")
     public Universite findById(@RequestParam long id) {
         return service.findById(id);
