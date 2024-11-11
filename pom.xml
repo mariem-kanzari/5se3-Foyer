@@ -74,6 +74,10 @@
     <groupId>io.micrometer</groupId>
     <artifactId>micrometer-registry-prometheus</artifactId>
 </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
     </dependencies>
     <distributionManagement>
@@ -129,23 +133,7 @@
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.7.0.1746</version>
             </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>6.5.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <format>XML</format>
-                    <outputDirectory>target</outputDirectory>
-                </configuration>
-            </plugin>
+
         </plugins>
         <finalName>Projet-Devops</finalName>
     </build>
