@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  // Add any other production-specific settings here
-};
+  apiUrl: 'http://192.168.33.10:80/shadha',
+  appName: 'sha333dhaaa'};
