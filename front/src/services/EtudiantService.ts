@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 export class Services {
 
-  private baseUrl1 = `http://localhost:8082/tpfoyer/etudiant`;
+  private baseUrl1 = `http://192.168.33.10:8082/tpfoyer/etudiant`;
 
   constructor(private http: HttpClient) {}
 
