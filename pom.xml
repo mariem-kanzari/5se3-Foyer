@@ -143,7 +143,23 @@
                     <forkCount>1</forkCount>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.5.0</version>  <!-- Remplacez par la version actuelle -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>  <!-- Cette phase peut varier -->
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>XML</format> <!-- Vous pouvez également utiliser HTML si nécessaire -->
+                    <outputDirectory>target</outputDirectory>  <!-- Répertoire de sortie pour le rapport -->
+                </configuration>
+            </plugin>
 
         </plugins>
         <finalName>Projet-Devops</finalName>
