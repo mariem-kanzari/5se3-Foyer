@@ -133,8 +133,8 @@ public class BlocServiceTest {
         // Setup: Save the Bloc before calling findById
         Bloc savedBloc = blocService.addOrUpdate(bloc);
 
-        // Ensure the Bloc has an ID
-        assertNotNull(savedBloc.getIdBloc(), "The Bloc should have an ID after saving");
+        // Ensure the Bloc has a valid ID (non-zero) after saving
+        assertTrue(savedBloc.getIdBloc() > 0, "The Bloc should have a valid, non-zero ID after saving");
 
         // Execute the findById method using the saved Bloc's ID
         Bloc foundBloc = blocService.findById(savedBloc.getIdBloc());
@@ -150,6 +150,7 @@ public class BlocServiceTest {
         assertEquals(101, foundBloc.getChambres().get(0).getNumeroChambre(), "The first chambre number should be 101");
         assertEquals(102, foundBloc.getChambres().get(1).getNumeroChambre(), "The second chambre number should be 102");
     }
+
 
 
     @Test

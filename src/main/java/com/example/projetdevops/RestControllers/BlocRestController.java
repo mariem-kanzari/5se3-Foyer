@@ -20,7 +20,6 @@ public class BlocRestController {
     @GetMapping("findAll")
     public List<Bloc> findAll() {
         List<Bloc> blocs = service.findAll();
-        System.out.println("Controller returning blocs: " + blocs); // Log the result
         return blocs; // Return the actual list
     }
     @GetMapping("findById")

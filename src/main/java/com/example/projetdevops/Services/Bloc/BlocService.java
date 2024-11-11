@@ -6,6 +6,7 @@ import com.example.projetdevops.DAO.Entities.Foyer;
 import com.example.projetdevops.DAO.Repositories.BlocRepository;
 import com.example.projetdevops.DAO.Repositories.ChambreRepository;
 import com.example.projetdevops.DAO.Repositories.FoyerRepository;
+import com.example.projetdevops.Exceptions.BlocNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,8 +50,10 @@ public class BlocService implements IBlocService {
 
     @Override
     public Bloc findById(long id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElseThrow(() -> new BlocNotFoundException(id));
+
     }
+
 
     @Override
     public void deleteById(long id) {
@@ -75,13 +78,8 @@ public class BlocService implements IBlocService {
             Chambre chambre=chambreRepository.findByNumeroChambre(nu);
             chambres.add(chambre);
         }
-        // Keyword (2ème méthode)
-        //chambres=chambreRepository.findAllByNumeroChambre(numChambre);
-        //2 Parent==>Chambre  Child==> Bloc
-        for (Chambre cha : chambres) {
-            //3 On affecte le child au parent
+               for (Chambre cha : chambres) {
             cha.setBloc(b);
-            //4 save du parent
             chambreRepository.save(cha);
         }
         return b;
