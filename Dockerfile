@@ -4,7 +4,7 @@ LABEL authors="mkanz"
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
+COPY ${JAR_FILE} app.jar
 
 # Expose the port your application runs on
 EXPOSE 8082
