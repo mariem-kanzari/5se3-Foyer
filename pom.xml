@@ -10,6 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>Projet-Devops</artifactId>
+    <version>1.2.5</version>
     <version>0.0.2-SNAPSHOT</version>
     <name>Projet-Devops</name>
     <description>Projet-Devops</description>
@@ -75,6 +76,9 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
         </dependency>
+
+
+ 
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
