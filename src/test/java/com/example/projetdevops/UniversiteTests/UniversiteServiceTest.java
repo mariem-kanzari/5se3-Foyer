@@ -19,13 +19,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@TestPropertySource(properties = "spring.test.context.timeout=30000")
+
+@SpringBootTest
+@Transactional
+
 @TestPropertySource(properties = "spring.test.context.timeout=10000")  // 10 seconds timeout
 @SpringBootTest(properties = "spring.test.context.failure-threshold=2")
 @Transactional // This ensures tests are wrapped in a transaction
+
 public class UniversiteServiceTest {
 
     @Autowired
