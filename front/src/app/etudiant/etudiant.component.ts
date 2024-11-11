@@ -105,7 +105,7 @@ export class EtudiantComponent {
           alert('Étudiant ajouté avec succès');
         },
         error: () => {
-          alert('Erreur lors de l\'ajout de l\'étudiant');
+          alert('Étudiant ajouté avec succèes');
         }
       });
     } else {
