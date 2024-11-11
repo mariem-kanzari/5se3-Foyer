@@ -43,7 +43,7 @@ services:
     tty: true
 
   app-front:
-    image: shadhanej/angulardevopss
+    image: shadhanej/angular
     ports:
       - "80:80"
     restart: on-failure
