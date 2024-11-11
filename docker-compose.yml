@@ -18,7 +18,7 @@ services:
       retries: 5
 
   app-tpfoyer:
-    image: shadhanej/tp-foyer:0.3.0
+    image: shadhanej/tp-foyer:0.3.0:latest
     depends_on:
       mysqldb:
         condition: service_healthy
@@ -43,7 +43,7 @@ services:
     tty: true
 
   app-front:
-    image: shadhanej/angular
+    image: shadhanej/angular:latest
     ports:
       - "80:80"
     restart: on-failure
