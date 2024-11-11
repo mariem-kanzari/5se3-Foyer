@@ -1,6 +1,7 @@
 package com.example.projetdevops.Services.Etudiant;
 
 import com.example.projetdevops.DAO.Entities.Etudiant;
+import com.example.projetdevops.DAO.Entities.Universite;
 import com.example.projetdevops.DAO.Repositories.EtudiantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,33 +11,31 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class EtudiantService implements IEtudiantService {
-    EtudiantRepository repo;
 
-    @Override
-    public Etudiant addOrUpdate(Etudiant e) {
-        return repo.save(e);
-    }
+
+    EtudiantRepository etudiantRepository;
 
     @Override
     public List<Etudiant> findAll() {
-        List<Etudiant> etudiants = (List<Etudiant>) repo.findAll();
-        System.out.println("Fetched Etudiants: " + etudiants); // Logging for debugging
-        return etudiants;}
-
+        return etudiantRepository.findAll();
+    }
     @Override
-    public Etudiant findById(Integer id) {
-        return repo.findById(id).get();
+
+    public Etudiant retrieveEtudiant(Long etudiantId) {
+        return etudiantRepository.findById(etudiantId).get();
+    }
+    @Override
+
+    public Etudiant addOrUpdate(Etudiant c) {
+        return etudiantRepository.save(c);
+    }
+    public Etudiant modifyEtudiant(Etudiant c) {
+        return etudiantRepository.save(c);
+    }
+    public void removeEtudiant(Long etudiantId) {
+        etudiantRepository.deleteById(etudiantId);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        repo.deleteById(id);
-    }
-
-    @Override
-    public void delete(Etudiant e) {
-        repo.delete(e);
-    }
 
 
 }
