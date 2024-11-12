@@ -1,5 +1,4 @@
 package com.example.projetdevops.BlocTests;
-
 import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.DAO.Entities.Chambre;
 import com.example.projetdevops.DAO.Entities.Foyer;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
