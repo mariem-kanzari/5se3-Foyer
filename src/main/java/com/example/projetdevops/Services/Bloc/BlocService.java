@@ -9,8 +9,6 @@ import com.example.projetdevops.DAO.Repositories.FoyerRepository;
 import com.example.projetdevops.Exceptions.BlocNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
