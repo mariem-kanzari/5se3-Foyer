@@ -3,7 +3,6 @@ package com.example.projetdevops.BlocTests;
 import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.DAO.Entities.Chambre;
 import com.example.projetdevops.DAO.Entities.Foyer;
-import com.example.projetdevops.DAO.Entities.TypeChambre;
 import com.example.projetdevops.DAO.Repositories.BlocRepository;
 import com.example.projetdevops.DAO.Repositories.ChambreRepository;
 import com.example.projetdevops.DAO.Repositories.FoyerRepository;
