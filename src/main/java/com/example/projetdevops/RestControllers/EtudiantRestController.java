@@ -1,7 +1,6 @@
 package com.example.projetdevops.RestControllers;
 
 import com.example.projetdevops.DAO.Entities.Etudiant;
-import com.example.projetdevops.DAO.Entities.Universite;
 import com.example.projetdevops.Services.Etudiant.IEtudiantService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,7 @@ public class EtudiantRestController {
 
     @PostMapping("addOrUpdate")
     public Etudiant addEtudiant(@RequestBody Etudiant c) {
-        Etudiant etudiant = service.addOrUpdate(c);
-        return etudiant;
+        return service.addOrUpdate(c);
     }
 
     @GetMapping("find")
@@ -28,7 +26,7 @@ public class EtudiantRestController {
     }
 
     @GetMapping("findById/{id}")
-    Etudiant findById(@PathVariable("id") Long id) {
+    public Etudiant findById(@PathVariable("id") Long id) {
         return service.retrieveEtudiant(id);
     }
 
