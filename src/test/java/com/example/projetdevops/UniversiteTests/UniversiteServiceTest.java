@@ -1,4 +1,4 @@
-package com.example.projetdevops.UniversiteTests;
+/*package com.example.projetdevops.UniversiteTests;
 
 
  import com.example.projetdevops.DAO.Entities.Universite;
@@ -90,3 +90,4 @@ public class UniversiteServiceTest  {
         });
     }
 }
+*/

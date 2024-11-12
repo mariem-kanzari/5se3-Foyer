@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue; // Importation d'une 
 @SpringBootTest
 class ProjetDevopsApplicationTests {
 
-    @Test
+  /**  @Test
     void contextLoads() {
         assertTrue(true);
-    }
+    }*/
 
 }

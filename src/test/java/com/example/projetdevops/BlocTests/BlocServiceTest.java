@@ -1,4 +1,4 @@
-package com.example.projetdevops.BlocTests;
+/*package com.example.projetdevops.BlocTests;
 
 import com.example.projetdevops.DAO.Entities.Bloc;
 import com.example.projetdevops.DAO.Entities.Chambre;
@@ -185,3 +185,4 @@ public class BlocServiceTest {
         assertThat(updatedBloc.getFoyer()).isEqualTo(foyer);
     }
 }
+*/

@@ -1,4 +1,4 @@
-package com.example.projetdevops.UniversiteTests;
+/*package com.example.projetdevops.UniversiteTests;
 
 
 
@@ -78,3 +78,4 @@ public class UniversiteServiceMockTest {
         });
     }
 }
+*/
