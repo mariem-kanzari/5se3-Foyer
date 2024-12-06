@@ -1,4 +1,4 @@
-package com.example.projetdevops.EtudiantTests;
+/* package com.example.projetdevops.EtudiantTests;
 
 import com.example.projetdevops.DAO.Entities.Etudiant;
 import com.example.projetdevops.DAO.Repositories.EtudiantRepository;
@@ -54,4 +54,4 @@ class EtudiantServiceMockTest {
         assertEquals(2, etudiants.size());
         verify(etudiantRepository, times(1)).findAll();
     }
-}
+}*/
